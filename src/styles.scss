@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-primary {
+  background: #00adff73;
+}
+
+.btn-disabled {
+  pointer-events: none;
+  background-color: rgba(128, 128, 128, 0.466);
+}

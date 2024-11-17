@@ -1,0 +1,52 @@
+<h1
+  class="flex justify-center uppercase decoration-solid text-2xl mt-5 font-medium"
+>
+  All &nbsp; Sprints
+</h1>
+<div class="flex justify-end m-5">
+  <button
+    class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+    [routerLink]="'/sprint/create-sprint'"
+  >
+    Create Sprint
+  </button>
+  <button
+    class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+    [routerLink]="'/story/create-story'"
+  >
+    Create Stories
+  </button>
+</div>
+<div class="grid grid-rows-1 justify-center">
+  @if(sprintList.length) {
+  <table class="min-w-full table-auto">
+    <thead>
+      <tr class="border-b border-[#00adffd1]">
+        <th class="p-3">Sprint Name</th>
+        <th class="p-3">Stories In Sprint</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (sprint of sprintList; track $index) {
+      <tr class="border-b border-[#00adffd1]">
+        <td class="p-3">{{ sprint.sprintName }}</td>
+        <td class="p-3">
+          @for(story of sprint.selectedStories; track $index){
+          <span
+            >{{ story.storyName }}
+            @if($index !== sprint.selectedStories.length-1){
+            <span>,</span>
+            }
+          </span>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }@else {
+  <div class="m-3 p-5 border-solid border-2 rounded border-[#00adffd1]">
+    No Sprints Created
+  </div>
+  }
+</div>
