@@ -1,0 +1,55 @@
+<h1
+  class="flex justify-center uppercase decoration-solid text-2xl mt-5 font-medium"
+>
+  Created Stories
+</h1>
+<div class="flex justify-end m-5">
+  <button
+    class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+    routerLink="/story/create-story"
+  >
+    Create Story
+  </button>
+  <button
+    class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+    routerLink="/sprint/create-sprint"
+  >
+    Create Sprint
+  </button>
+  <button
+    class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+    routerLink="/main"
+  >
+    Back Home
+  </button>
+</div>
+
+<div class="grid grid-rows-1 justify-center">
+  @if(storiesList.length) {
+  <table class="min-w-full table-auto">
+    <thead>
+      <tr class="border-b border-[#00adffd1]">
+        <th class="p-3">Story Name</th>
+        <th class="p-3">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (story of storiesList; track $index) {
+      <tr class="border-b border-[#00adffd1]">
+        <td class="p-3">{{ story.storyName }}</td>
+        <td class="p-3">
+          <button
+            class="py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1] shadow-sm"
+            (click)="deleteStory($index)"
+          >
+            Delete Story
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }@else {
+  <div class="m-3 p-5 border-solid border-2 rounded border-[#00adffd1]">No Stories Created</div>
+  }
+</div>

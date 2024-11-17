@@ -1,0 +1,94 @@
+<h1
+  class="flex justify-center uppercase decoration-solid text-2xl mt-5 font-medium"
+>
+  Create Sprint
+</h1>
+@if(sharedService.stories.length){
+<form class="grid grid-rows-2 justify-center" [formGroup]="sprintForm">
+  <div class="m-3 border-solid border-2 rounded border-[#00adffd1]">
+    <label class="m-3">Sprint Name</label>
+    <input
+      class="m-3 px-2 py-2 rounded-md focus:ring-2 focus:ring-inset focus:ring-[#00adffd1] outline-none"
+      type="text"
+      formControlName="sprintName"
+      placeholder="Enter Story Name"
+    />
+  </div>
+  <div class="m-3 border-solid border-2 rounded border-[#00adffd1]">
+    <label class="m-3">Story Points</label>
+    <input
+      class="m-3 px-2 py-2 rounded-md focus:ring-2 focus:ring-inset focus:ring-[#00adffd1] outline-none"
+      type="text"
+      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+      formControlName="maxStoryPoints"
+      placeholder="Enter Story Points to be assigned"
+    />
+  </div>
+  <div class="grid grid-rows-1 justify-center">
+    <button
+      class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+      (click)="autoSelectStories()"
+      [ngClass]="{ 'btn-disabled': sprintForm.invalid }"
+    >
+      Auto Select Story
+    </button>
+    <button
+      class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+      (click)="clearAllStories()"
+    >
+      Clear Stories
+    </button>
+    <button
+      class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+      (click)="clearSelectedStories()"
+      [ngClass]="{ 'btn-disabled': sprintForm.invalid }"
+    >
+      Clear Selected Stories
+    </button>
+  </div>
+</form>
+
+}@else {
+<div class="grid grid-rows-1 justify-center m-10">
+  <div class="m-3 p-5 border-solid border-2 rounded border-[#00adffd1]">
+    No stories created yet, please create at least one story to add sprints
+  </div>
+  <button
+    class="m-10 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+    [routerLink]="'/story/create-story'"
+  >
+    Create Story
+  </button>
+</div>
+} @if(sprintForm.get('selectedStories')?.value.length) {
+<div class="grid grid-rows-1 justify-center">
+  <h1
+    class="flex justify-center uppercase decoration-solid text-2xl mt-5 font-normal"
+  >
+    Auto Selected Stories
+  </h1>
+  <table class="min-w-full table-auto">
+    <thead>
+      <tr class="border-b border-[#00adffd1]">
+        <th class="p-3">Story Name</th>
+        <th class="p-3">Story Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (story of sprintForm.get('selectedStories')?.value; track $index) {
+      <tr class="border-b border-[#00adffd1]">
+        <td class="p-3">{{ story.storyName }}</td>
+        <td class="p-3">{{ story.storyPoints }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <button
+    class="m-5 shadow-sm py-2 px-5 rounded-[4px] bg-[#00adff73] hover:bg-[#00adffd1]"
+    (click)="saveSprint()"
+  >
+    Save
+  </button>
+</div>
+
+}
